@@ -1,0 +1,10 @@
+# Find this value with: az account show --query id --output tsv
+subscription_id = "00000000-0000-0000-0000-000000000000"
+
+# Replace this with the contents of your SSH public key file.
+ssh_public_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAA... your-name@example.com"
+
+# Restrict SSH access to your public IP, for example "203.0.113.10/32".
+ssh_allowed_cidr = "0.0.0.0/0"
+
+# location = "Central India"
