@@ -6,19 +6,13 @@ variable "subscription_id" {
 variable "location" {
   description = "Azure region in which to create the resources."
   type        = string
-  default     = "Central India"
+  default     = "East Asia"
 }
 
 variable "admin_username" {
   description = "Administrator username for the Linux VM."
   type        = string
   default     = "azureadmin"
-}
-
-variable "ssh_public_key" {
-  description = "SSH public key used to access the VM."
-  type        = string
-  sensitive   = true
 }
 
 variable "ssh_allowed_cidr" {

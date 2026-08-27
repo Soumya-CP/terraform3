@@ -1,3 +1,10 @@
+# SSH key pair generated at deploy time so no external key input is required.
+# The private key can be read from Terraform state/outputs by an administrator.
+resource "tls_private_key" "vm" {
+  algorithm = "RSA"
+  rsa_bits  = 4096
+}
+
 resource "azurerm_resource_group" "artizens" {
   name     = "arti"
   location = var.location
@@ -65,7 +72,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
   name                = "arti-vm"
   resource_group_name = azurerm_resource_group.artizens.name
   location            = azurerm_resource_group.artizens.location
-  size                = "Standard_B1s"
+  size                = "Standard_B2ats_v2"
   admin_username      = var.admin_username
 
   network_interface_ids = [
@@ -76,7 +83,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
 
   admin_ssh_key {
     username   = var.admin_username
-    public_key = var.ssh_public_key
+    public_key = tls_private_key.vm.public_key_openssh
   }
 
   os_disk {
