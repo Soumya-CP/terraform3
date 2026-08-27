@@ -1,24 +1,24 @@
 resource "azurerm_resource_group" "artizens" {
-  name     = "artizens"
+  name     = "arti"
   location = var.location
 }
 
 resource "azurerm_virtual_network" "main" {
-  name                = "artizens-vnet"
+  name                = "arti-vnet"
   address_space       = ["10.0.0.0/16"]
   location            = azurerm_resource_group.artizens.location
   resource_group_name = azurerm_resource_group.artizens.name
 }
 
 resource "azurerm_subnet" "main" {
-  name                 = "artizens-subnet"
+  name                 = "arti-subnet"
   resource_group_name  = azurerm_resource_group.artizens.name
   virtual_network_name = azurerm_virtual_network.main.name
   address_prefixes     = ["10.0.1.0/24"]
 }
 
 resource "azurerm_network_security_group" "vm" {
-  name                = "artizens-vm-nsg"
+  name                = "arti-vm-nsg"
   location            = azurerm_resource_group.artizens.location
   resource_group_name = azurerm_resource_group.artizens.name
 
@@ -36,7 +36,7 @@ resource "azurerm_network_security_group" "vm" {
 }
 
 resource "azurerm_public_ip" "vm" {
-  name                = "artizens-vm-public-ip"
+  name                = "arti-vm-public-ip"
   location            = azurerm_resource_group.artizens.location
   resource_group_name = azurerm_resource_group.artizens.name
   allocation_method   = "Static"
@@ -44,7 +44,7 @@ resource "azurerm_public_ip" "vm" {
 }
 
 resource "azurerm_network_interface" "vm" {
-  name                = "artizens-vm-nic"
+  name                = "arti-vm-nic"
   location            = azurerm_resource_group.artizens.location
   resource_group_name = azurerm_resource_group.artizens.name
 
@@ -62,7 +62,7 @@ resource "azurerm_network_interface_security_group_association" "vm" {
 }
 
 resource "azurerm_linux_virtual_machine" "vm" {
-  name                = "artizens-vm"
+  name                = "arti-vm"
   resource_group_name = azurerm_resource_group.artizens.name
   location            = azurerm_resource_group.artizens.location
   size                = "Standard_B1s"
